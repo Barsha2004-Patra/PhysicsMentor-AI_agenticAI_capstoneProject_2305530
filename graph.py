@@ -1,22 +1,13 @@
 """
-graph.py — PhysicsMentor AI
+Graph flow:
+memory → confusion_detector → router →
+[retrieve] → retrieval → difficulty_adapter → derivation → answer → eval → save
+[tool] → tool → difficulty_adapter → answer → eval → save
+[skip] → skip → answer → eval → save
 
-Assembles the LangGraph StateGraph with 10 nodes and conditional routing.
-
-GRAPH FLOW:
-  memory → confusion_detector → router →
-    [retrieve]  → retrieval → difficulty_adapter → derivation → answer → eval → save → END
-    [tool]      → tool → difficulty_adapter → answer → eval → save → END
-    [skip]      → skip → answer → eval → save → END
-    [quiz]      → (future: quiz_node) → answer → eval → save → END
-
-  eval_decision:
-    faithfulness >= 0.7 OR eval_retries >= 2  → save
-    faithfulness < 0.7 AND eval_retries < 2   → answer (retry)
-
-Design note: difficulty_adapter runs BEFORE derivation and answer nodes
-so both can use the difficulty instruction. It runs AFTER retrieval so
-it has access to the retrieved context level.
+Eval:
+- save if faithfulness ≥ 0.7 or retries ≥ 2
+- else retry answer
 """
 
 from functools import partial
