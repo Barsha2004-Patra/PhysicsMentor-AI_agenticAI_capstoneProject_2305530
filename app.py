@@ -1,5 +1,5 @@
 """
-app.py — PhysicsMentor AI — Streamlit Interface
+app.py — PhysicsMentor AI — Streamlit Interfa
 
 Features:
 - Chat interface with physics-themed styling
